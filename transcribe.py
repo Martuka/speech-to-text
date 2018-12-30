@@ -46,7 +46,9 @@ def transcribe_file(speech_file):
         encoding=enums.RecognitionConfig.AudioEncoding.FLAC,
         sample_rate_hertz=16000,
         model='video',
-        language_code='en-US')
+        language_code='en-US',
+        enable_automatic_punctuation=True,
+        enable_word_time_offsets=True)
 
     response = client.recognize(config, audio)
     # Each result is for a consecutive portion of the audio. Iterate through
@@ -59,6 +61,19 @@ def transcribe_file(speech_file):
             print(u'Transcript with confidence {}:\n{}'.format(confidence, txt))
             result_file.write('Result confidence: {}\n'.format(confidence))
             result_file.write(txt)
+            # alternative = result.alternatives[0]
+            # for word_info in alternative.words:
+            #     word = word_info.word
+            #     start_time = word_info.start_time
+            #     end_time = word_info.end_time
+            #     print('Word: {}, start_time: {}, end_time: {}'.format(
+            #         word,
+            #         start_time.seconds + start_time.nanos * 1e-9,
+            #         end_time.seconds + end_time.nanos * 1e-9))
+            #     result_file.write('Word: {}, start_time: {}, end_time: {}'.format(
+            #         word,
+            #         start_time.seconds + start_time.nanos * 1e-9,
+            #         end_time.seconds + end_time.nanos * 1e-9))
 
 
 
