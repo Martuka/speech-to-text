@@ -55,10 +55,14 @@ def transcribe_file(speech_file):
 
     # Each result is for a consecutive portion of the audio. Iterate through
     # them to get the transcripts for the entire audio file.
-    for result in response.results:
-        # The first alternative is the most likely one for this portion.
-        print(u'Transcript: {}'.format(result.alternatives[0].transcript))
-        print('Confidence: {}'.format(result.alternatives[0].confidence))
+    with io.open('result.txt', 'w') as result_file:
+        for result in response.results:
+            # The first alternative is the most likely one for this portion.
+            txt = result.alternatives[0].transcript
+            confidence = result.alternatives[0].confidence
+            print(u'Transcript with confidence {}:\n{}'.format(confidence, txt))
+            result_file.write('Result confidence: {}\n'.format(confidence))
+            result_file.write(txt)
 
 
 def transcribe_gcs(gcs_uri):

@@ -55,7 +55,9 @@ def transcribe_file(speech_file):
         for result in response.results:
             # The first alternative is the most likely one for this portion.
             txt = result.alternatives[0].transcript
-            print(u'Transcript:\n{}'.format(txt))
+            confidence = result.alternatives[0].confidence
+            print(u'Transcript with confidence {}:\n{}'.format(confidence, txt))
+            result_file.write('Result confidence: {}\n'.format(confidence))
             result_file.write(txt)
 
 

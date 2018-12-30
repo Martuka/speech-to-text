@@ -28,7 +28,6 @@ import os
 os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = 'REPLACE_WITH_PATH_TO_CREDENTIALS'
 
 
-# [START speech_transcribe_streaming]
 def transcribe_streaming(stream_file):
     """Streams transcription of the given audio file."""
     from google.cloud import speech
@@ -36,7 +35,6 @@ def transcribe_streaming(stream_file):
     from google.cloud.speech import types
     client = speech.SpeechClient()
 
-    # [START speech_python_migration_streaming_request]
     with io.open(stream_file, 'rb') as audio_file:
         content = audio_file.read()
 
@@ -53,24 +51,23 @@ def transcribe_streaming(stream_file):
     streaming_config = types.StreamingRecognitionConfig(config=config)
 
     # streaming_recognize returns a generator.
-    # [START speech_python_migration_streaming_response]
     responses = client.streaming_recognize(streaming_config, requests)
-    # [END speech_python_migration_streaming_request]
 
-    for response in responses:
-        # Once the transcription has settled, the first result will contain the
-        # is_final result. The other results will be for subsequent portions of
-        # the audio.
-        for result in response.results:
-            print('Finished: {}'.format(result.is_final))
-            print('Stability: {}'.format(result.stability))
-            alternatives = result.alternatives
-            # The alternatives are ordered from most likely to least.
-            for alternative in alternatives:
-                print('Confidence: {}'.format(alternative.confidence))
-                print(u'Transcript: {}'.format(alternative.transcript))
-    # [END speech_python_migration_streaming_response]
-# [END speech_transcribe_streaming]
+    with io.open('result.txt', 'w') as result_file:
+        for response in responses:
+            # Once the transcription has settled, the first result will contain the
+            # is_final result. The other results will be for subsequent portions of
+            # the audio.
+            for result in response.results:
+                print('Finished: {}'.format(result.is_final))
+                print('Stability: {}'.format(result.stability))
+                alternatives = result.alternatives
+                # The alternatives are ordered from most likely to least.
+                for alternative in alternatives:
+                    print('Confidence: {}'.format(alternative.confidence))
+                    print(u'Transcript: {}'.format(alternative.transcript))
+                    result_file.write('Confidence: {}\n'.format(alternative.confidence))
+                    result_file.write('Transcript: {}'.format(alternative.transcript))
 
 
 if __name__ == '__main__':
