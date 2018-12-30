@@ -25,4 +25,9 @@ this, you must first transcode your audio file to a `FLAC` format with only one 
 ffmpeg -i your_audio_file.wav -ac 1 output_file.flac
 ```
 Then, you can use the transcribe.py script to get a transcript of your audio file.
-It will print the result in the console as well as in a `result.txt` file.
+It will print the result in the console as well as in a `result.txt` file.  
+Finally, run
+```
+python3 transcribe.py output_file.flac
+```
+and enjoy
