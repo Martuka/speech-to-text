@@ -46,7 +46,7 @@ def transcribe_streaming(stream_file):
                 for chunk in stream)
 
     config = types.RecognitionConfig(
-        encoding=enums.RecognitionConfig.AudioEncoding.LINEAR16,
+        encoding=enums.RecognitionConfig.AudioEncoding.FLAC,
         sample_rate_hertz=16000,
         language_code='en-US')
     streaming_config = types.StreamingRecognitionConfig(config=config)
