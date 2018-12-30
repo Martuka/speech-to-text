@@ -45,6 +45,7 @@ def transcribe_file(speech_file):
         # encoding=enums.RecognitionConfig.AudioEncoding.LINEAR16,
         encoding=enums.RecognitionConfig.AudioEncoding.FLAC,
         sample_rate_hertz=16000,
+        model='video',
         language_code='en-US')
 
     operation = client.long_running_recognize(config, audio)

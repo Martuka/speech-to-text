@@ -19,7 +19,7 @@ os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = 'REPLACE_WITH_PATH_TO_CREDENTIALS
 ```
 with the right value. For instance, in my case it would be
 ```
-os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = '~/Developer/nlp/STT/CCC-media-transcription.json'
+os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = '/Users/me/Developer/nlp/STT/CCC-media-transcription.json'
 ```
 2. Now that everything is prepared, we can use the example code provided by Google
 to transcript a speech.
