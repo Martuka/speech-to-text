@@ -88,14 +88,35 @@ def transcribe_gcs(gcs_uri):
     config = types.RecognitionConfig(
         encoding=enums.RecognitionConfig.AudioEncoding.FLAC,
         sample_rate_hertz=16000,
-        language_code='en-US')
+        model='video',
+        language_code='en-US',
+        enable_automatic_punctuation=True,
+        enable_word_time_offsets=True)
 
     response = client.recognize(config, audio)
     # Each result is for a consecutive portion of the audio. Iterate through
     # them to get the transcripts for the entire audio file.
-    for result in response.results:
-        # The first alternative is the most likely one for this portion.
-        print(u'Transcript:\n{}'.format(result.alternatives[0].transcript))
+    with io.open('result.txt', 'w') as result_file:
+        for result in response.results:
+            # The first alternative is the most likely one for this portion.
+            txt = result.alternatives[0].transcript
+            confidence = result.alternatives[0].confidence
+            print(u'Transcript with confidence {}:\n{}'.format(confidence, txt))
+            result_file.write('Result confidence: {}\n'.format(confidence))
+            result_file.write(txt)
+            # alternative = result.alternatives[0]
+            # for word_info in alternative.words:
+            #     word = word_info.word
+            #     start_time = word_info.start_time
+            #     end_time = word_info.end_time
+            #     print('Word: {}, start_time: {}, end_time: {}'.format(
+            #         word,
+            #         start_time.seconds + start_time.nanos * 1e-9,
+            #         end_time.seconds + end_time.nanos * 1e-9))
+            #     result_file.write('Word: {}, start_time: {}, end_time: {}'.format(
+            #         word,
+            #         start_time.seconds + start_time.nanos * 1e-9,
+            #         end_time.seconds + end_time.nanos * 1e-9))
 
 
 if __name__ == '__main__':

@@ -69,7 +69,7 @@ def transcribe_streaming(stream_file):
                 for alternative in alternatives:
                     print('Confidence: {}'.format(alternative.confidence))
                     print(u'Transcript: {}'.format(alternative.transcript))
-                    result_file.write('Confidence: {}\n'.format(alternative.confidence))
+                    result_file.write('\nConfidence: {}\n'.format(alternative.confidence))
                     result_file.write('Transcript: {}'.format(alternative.transcript))
 
 

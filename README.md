@@ -7,8 +7,8 @@ There is also a short reminder on how to get prepared to use it.
 
 ---
 1. Ensure you have `gcloud` set up and that you have created and activated a service account. Follow the [Quickstart](https://cloud.google.com/speech-to-text/docs/quickstart-client-libraries) guide to set it up and get your credential key. You will need a credit card. The first hour is free, then it's around 1.44$ per hour. Keep
-in mind that the first time you use Google API, you get 300$ of free credits and
-one year to spend it.  
+in mind that the first time you use Google API, you can get 300$ of free credits and
+one year to spend it. Don't miss this opportunity if you create a Google API project.  
 Once you have downloaded your credential key (a .json file), you will need to set
 the `GOOGLE_APPLICATION_CREDENTIALS` variable to the path to the file. You could
 set it in your .bashrc file, but then if you were to use multiple Google API paid service, it could conflict. A simple solution could be to set it in your python
@@ -25,7 +25,9 @@ os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = '/Users/me/Developer/nlp/STT/CCC-
 to transcript a speech.
 There are three kinds of scripts used in this example. One for audio files up to
 one minute long, one for audio files up to 180 minutes long and one for streaming
-input, when the source is a microphone. You can get all the details and differences
+input, when the source is a microphone. For audio files **longer than 1 minute**, you
+need to push the file in a bucket on the Google Cloud Storage and pass the url to the `transcribe_async.py` script.  
+You can get all the details and differences
 looking at the Google [documentation](https://cloud.google.com/speech-to-text/docs/how-to).  
 We will just cover the case where audio file are shorter than one minute. To do
 this, you must first transcode your audio file to a `FLAC` format with only one channel (mono). You can do this with `ffmpeg` very easily with the following command:
@@ -38,4 +40,8 @@ Finally, run
 ```
 python3 transcribe.py output_file.flac
 ```
-and enjoy
+or
+```
+python3 transcribe_async.py gsc://your_bucket_name/your_file.flac
+```
+for a longer file and enjoy

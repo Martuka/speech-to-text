@@ -63,7 +63,7 @@ def transcribe_file(speech_file):
             txt = result.alternatives[0].transcript
             confidence = result.alternatives[0].confidence
             print(u'Transcript with confidence {}:\n{}'.format(confidence, txt))
-            result_file.write('Result confidence: {}\n'.format(confidence))
+            result_file.write('\nResult confidence: {}\n'.format(confidence))
             result_file.write(txt)
             # alternative = result.alternatives[0]
             # for word_info in alternative.words:
@@ -109,7 +109,7 @@ def transcribe_gcs(gcs_uri):
             txt = result.alternatives[0].transcript
             confidence = result.alternatives[0].confidence
             print(u'Transcript with confidence {}:\n{}'.format(confidence, txt))
-            result_file.write('Result confidence: {}\n'.format(confidence))
+            result_file.write('\nResult confidence: {}\n'.format(confidence))
             result_file.write(txt)
             # alternative = result.alternatives[0]
             # for word_info in alternative.words:
