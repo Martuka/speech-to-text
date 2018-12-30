@@ -12,7 +12,15 @@ one year to spend it.
 Once you have downloaded your credential key (a .json file), you will need to set
 the `GOOGLE_APPLICATION_CREDENTIALS` variable to the path to the file. You could
 set it in your .bashrc file, but then if you were to use multiple Google API paid service, it could conflict. A simple solution could be to set it in your python
-script directly, and this is what we are going to do.
+script directly, and this is what we are going to do.  
+At the beginning of each script, replace the following line
+```
+os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = 'REPLACE_WITH_PATH_TO_CREDENTIALS'
+```
+with the right value. For instance, in my case it would be
+```
+os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = '~/Developer/nlp/STT/CCC-media-transcription.json'
+```
 2. Now that everything is prepared, we can use the example code provided by Google
 to transcript a speech.
 There are three kinds of scripts used in this example. One for audio files up to
